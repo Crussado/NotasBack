@@ -1,0 +1,4 @@
+settings.py
+ENV/
+db.sqlite3
+
