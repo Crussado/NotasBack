@@ -41,10 +41,7 @@ def create_nota(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         nota = Nota.objects.create(title=body['title'], body=body['body'])
-        return JsonResponse({ 'title': nota.title, 'body': nota.body, 'id': nota.id }, status = 200)
+        return JsonResponse(redefinir(nota), status = 200)
     except Exception as e:
         response = JsonResponse({ 'error' : 'Ocurrio un error: ' + e }, status = 500)
     return response
-
-
-    
