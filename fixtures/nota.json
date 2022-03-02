@@ -1,0 +1,26 @@
+[
+    {
+        "model": "nota.nota",
+        "pk": 1,
+        "fields": {
+            "title": "titulo nota 1",
+            "body": "cuerpo nota 1"
+        }
+    },
+    {
+        "model": "nota.nota",
+        "pk": 2,
+        "fields": {
+            "title": "titulo nota 2",
+            "body": "cuerpo nota 2"
+        }
+    },
+    {
+        "model": "nota.nota",
+        "pk": 3,
+        "fields": {
+            "title": "titulo nota 3",
+            "body": "cuerpo nota 3"
+        }
+    }
+]
