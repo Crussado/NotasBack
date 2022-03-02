@@ -1,4 +1,6 @@
 settings.py
 ENV/
 db.sqlite3
+*.pyc
+node_modules/
 
