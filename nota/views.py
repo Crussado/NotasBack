@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import json
 
 from .models import Nota
+from .exceptions import *
 
 def get_nota(request, id_nota):
     try:
@@ -40,8 +41,20 @@ def create_nota(request):
     try:
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
+
+        if(not('body' in body.keys() and 'title' in body.keys())):
+            raise NotaSinKey
+
+        if(body['title'] == ''):
+            raise NotaSinTitulo
+
         nota = Nota.objects.create(title=body['title'], body=body['body'])
         return JsonResponse(redefinir(nota), status = 200)
+    except NotaSinKey:
+        response = JsonResponse({ 'error' : 'La nota no posee key'}, status = 400)
+    except NotaSinTitulo:
+        response = JsonResponse({ 'error' : 'La nota no posee titulo'}, status = 400)
     except Exception as e:
         response = JsonResponse({ 'error' : 'Ocurrio un error: ' + e }, status = 500)
+
     return response
