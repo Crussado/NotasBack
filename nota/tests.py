@@ -73,10 +73,18 @@ class NotaApiDeleteTest(TestCase):
         response = self.client.delete('/nota/3/delete_nota/')
         assert response.status_code == 200
         assert Nota.objects.all().count() == cant_notas - 1
+        response = self.client.get('/nota/3/get_nota/')
+        assert response.status_code == 400
 
     def test_delete_failed(self):
         cant_notas = Nota.objects.all().count()
-        response = self.client.delete('/nota/50/delete_nota/')
+        response = self.client.delete('/nota/0/delete_nota/')
         assert response.status_code == 400
         assert Nota.objects.all().count() == cant_notas 
+
+        nota = Nota.objects.last().id + 1 
+        response = self.client.delete('/nota/{0}/delete_nota/'.format(nota))
+        assert response.status_code == 400
+        assert Nota.objects.all().count() == cant_notas
+
 
