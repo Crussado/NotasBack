@@ -87,4 +87,17 @@ class NotaApiDeleteTest(TestCase):
         assert response.status_code == 400
         assert Nota.objects.all().count() == cant_notas
 
+class NotaApiGetNotasTest(TestCase):
+    fixtures = ['nota.json']
 
+    def setup(self):
+        self.user = User.objects.create_user(username='test', password='test123', is_superuser=True)
+        self.client = Client(HTTP_POST='localhost')
+        self.client.login(username='test', password='test123')
+
+    def test_get_notas_success(self):
+        cant_notas = Nota.objects.all().count()
+        response = self.client.delete('/nota/get_notas/')
+        cant_notas_devueltas = len(response.json()['notas'])
+        assert response.status_code == 200
+        assert cant_notas == cant_notas_devueltas
