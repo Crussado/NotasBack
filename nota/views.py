@@ -28,7 +28,6 @@ def get_notas(request):
 def delete_nota(request, id_nota):
     try:
         nota = Nota.objects.get(pk=id_nota)
-        print(nota.body, nota.title, nota.id)
         nota.delete()
         response = JsonResponse({'msj': 'funciona'}, status = 200)
     except Nota.DoesNotExist:
